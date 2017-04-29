@@ -2,6 +2,12 @@
 #
 .DS_Store
 
+#TS
+artifacts/
+
+#Jest
+coverage/
+
 # Xcode
 #
 build/

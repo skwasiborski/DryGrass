@@ -12,4 +12,9 @@ public class MainActivity extends ReactActivity {
     protected String getMainComponentName() {
         return "DryGrass";
     }
+
+    @Override
+    protected String getJSMainModuleName() {
+        return "artifacts/index.android";
+    }
 }

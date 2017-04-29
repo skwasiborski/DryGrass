@@ -4,15 +4,18 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {
   AppRegistry,
   StyleSheet,
   Text,
   View
-} from 'react-native';
+} from 'react-native'
 
-export default class DryGrass extends Component {
+interface Props { }
+interface State { }
+
+export default class DryGrass extends Component<Props, State> {
   render() {
     return (
       <View style={styles.container}>
@@ -27,11 +30,11 @@ export default class DryGrass extends Component {
           Shake or press menu button for dev menu
         </Text>
       </View>
-    );
+    )
   }
 }
 
-const styles = StyleSheet.create({
+const styles: any = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
@@ -48,6 +51,6 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
-});
+})
 
 AppRegistry.registerComponent('DryGrass', () => DryGrass);

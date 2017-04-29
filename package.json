@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "start": "node node_modules/react-native/local-cli/cli.js start --transformer node_modules/react-native-sm-transformer --skipflow",
     "tsc": "tsc",
     "clean": "rimraf artifacts",
     "build": "npm run clean && npm run tsc --",
@@ -25,6 +25,7 @@
     "babel-preset-react-native": "1.9.1",
     "concurrently": "^3.4.0",
     "jest": "19.0.2",
+    "react-native-sm-transformer": "^1.0.3",
     "react-test-renderer": "16.0.0-alpha.6",
     "rimraf": "^2.6.1",
     "tslint": "^5.1.0",

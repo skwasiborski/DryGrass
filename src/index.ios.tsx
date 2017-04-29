@@ -13,15 +13,35 @@ import {
 } from 'react-native'
 
 export interface Props { }
-export interface State { }
+export interface State {
+  showText: boolean
+}
 
 export default class DryGrass extends Component<Props, State> {
+  constructor(props) {
+    super(props);
+    this.state = {showText: true};
+
+    // Toggle the state every second
+    setInterval(() => {
+      this.setState({ showText: !this.state.showText });
+    }, 1000);
+  }
+
   render() {
-    return (
-      <View style={styles.container}>
+    let element: JSX.Element;
+    if (this.state.showText) {
+      // console.warn('Warning test');
+
+      element = (
         <Text style={styles.welcome}>
           Welcome to React Native! in TS
-        </Text>
+        </Text>);
+    }
+
+    return (
+      <View style={styles.container}>
+        {element}
         <Text style={styles.instructions}>
           To get started, edit index.ios.js
         </Text>

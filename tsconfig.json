@@ -10,7 +10,8 @@
     "noImplicitAny": false,
     "preserveConstEnums": true,
     "allowJs": false,
-    "sourceMap": true,
+    "inlineSourceMap": true,
+    "sourceRoot": "/src",
     "noImplicitReturns": true,
     "noUnusedParameters": true,
     "noUnusedLocals": true

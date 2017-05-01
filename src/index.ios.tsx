@@ -9,48 +9,67 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  Button
 } from 'react-native'
 
-export interface Props { }
-export interface State {
+import { Login } from './login.ios'
+
+export interface DryGrassState {
+  route?: string,
   showText: boolean
 }
 
-export default class DryGrass extends Component<Props, State> {
+export default class DryGrass extends Component<undefined, DryGrassState> {
   constructor(props) {
     super(props);
-    this.state = {showText: true};
+    this.state = { showText: true, route: 'main' };
+  }
 
-    // Toggle the state every second
-    setInterval(() => {
-      this.setState({ showText: !this.state.showText });
-    }, 1000);
+  goToLogin() {
+    this.setState(Object.assign({}, this.state, { route: 'login' }));
+  }
+
+  goToMain() {
+    this.setState(Object.assign({}, this.state, { route: 'main' }));
   }
 
   render() {
-    let element: JSX.Element;
-    if (this.state.showText) {
-      // console.warn('Warning test');
-
-      element = (
-        <Text style={styles.welcome}>
-          Welcome to React Native! in TS
-        </Text>);
+    let page: JSX.Element;
+    switch (this.state.route) {
+      case 'login': {
+        page = (
+            <View style={styles.container}>
+              <Login back={() => this.goToMain()}/>
+            </View>
+          );
+        break;
+      }
+      case 'main': {
+        page = (
+          <View style={styles.container}>
+            <Text style={styles.welcome}>
+              Welcome to React Native! in TS
+            </Text>
+            <Text style={styles.instructions}>
+              To get started, edit index.ios.js
+            </Text>
+            <Button
+              onPress={() => this.goToLogin()}
+              title="Log in"
+            />
+            <Text style={styles.instructions}>
+              Press Cmd+R to reload,{'\n'}
+              Cmd+D or shake for dev menu
+            </Text>
+          </View>
+        );
+        break;
+      }
+      default: throw new Error('unkonown route');
     }
 
-    return (
-      <View style={styles.container}>
-        {element}
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-      </View>
-    );
+    return page;
   }
 }
 

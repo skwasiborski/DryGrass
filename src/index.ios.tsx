@@ -9,7 +9,7 @@ import {
 
 import { Login } from './login.ios'
 import { Sensors } from './sensors.ios'
-import { SensorDetails, extractFromRoute as detailsExtractFromRoute } from './sensorDetails.ios'
+import { SensorDetails } from './sensorDetails.ios'
 
 import { DryGrassState, Page, getInitialState } from './stateHandling'
 
@@ -19,8 +19,8 @@ export default class DryGrass extends Component<undefined, DryGrassState> {
     this.state = getInitialState();
   }
 
-  goToPage(page: Page, route?: String) {
-    this.setState(Object.assign({}, this.state, { page: page, route: route }));
+  goToPage(page: Page, pageParams?: any) {
+    this.setState(Object.assign({}, this.state, { page: page, pageParams: pageParams }));
   }
 
   render() {
@@ -46,7 +46,7 @@ export default class DryGrass extends Component<undefined, DryGrassState> {
         page = (
               <SensorDetails goToSensors={() => this.goToPage(Page.sensors)}
                              goToEdit={() => {}}
-                             params={detailsExtractFromRoute(this.state.sensors, this.state.route)}/>
+                             params={this.state.pageParams}/>
           );
         break;
       }

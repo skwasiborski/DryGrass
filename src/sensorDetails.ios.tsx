@@ -32,20 +32,3 @@ export const SensorDetails = (props: Props) => {
     </View>
   );
 }
-
-export function extractFromRoute(sensors: Sensor[], route: String): {sensor: Sensor, isEdit: boolean} {
-  let parameters = route.split('/');
-  let sensor = sensors.find(s => s.id === parameters[1]);
-  if (sensor === undefined) {
-    console.warn(`sensor ${parameters[1]} not found, route: ${route}`);
-  }
-
-  return {sensor: sensor, isEdit: parameters[2] === 'edit'}
-}
-
-export function createRoute(sensor: Sensor, isEdit: boolean): String {
-  if (!isEdit)
-    return `/${sensor.id}/view`;
-  else
-    return `/${sensor.id}/edit`;
-}

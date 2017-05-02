@@ -9,11 +9,10 @@ import {
 } from 'react-native'
 
 import { Sensor } from './stateHandling'
-import { createRoute } from './sensorDetails.ios'
 
 export interface Props {
     sensors: Sensor[],
-    goToSensorDetails: (route: String) => void,
+    goToSensorDetails: (route: any) => void,
     goToMain: () => void,
 }
 
@@ -27,7 +26,7 @@ export const Sensors = (props: Props) => {
         <ListView
             dataSource={new ListView.DataSource({rowHasChanged: (r1, r2) => r1.id !== r2.id}).cloneWithRows(props.sensors)}
             renderRow={(sensor: Sensor) =>
-                    <TouchableHighlight onPress={() => props.goToSensorDetails(createRoute(sensor, false))}>
+                    <TouchableHighlight onPress={() => props.goToSensorDetails({sensor: sensor, isEdit: false})}>
                         <Text>{sensor.name}</Text>
                     </TouchableHighlight>
                 }

@@ -1,6 +1,6 @@
 export interface DryGrassState {
   page: Page,
-  route?: string,
+  pageParams?: any,
   houseName?: string,
   sensors?: Sensor[],
 }

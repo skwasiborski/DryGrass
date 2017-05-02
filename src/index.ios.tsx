@@ -1,9 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react'
 import {
   AppRegistry,
@@ -14,49 +8,61 @@ import {
 } from 'react-native'
 
 import { Login } from './login.ios'
+import { Sensors } from './sensors.ios'
+import { SensorDetails, extractFromRoute as detailsExtractFromRoute } from './sensorDetails.ios'
 
-export interface DryGrassState {
-  route?: string,
-  showText: boolean
-}
+import { DryGrassState, Page, getInitialState } from './stateHandling'
 
 export default class DryGrass extends Component<undefined, DryGrassState> {
   constructor(props) {
     super(props);
-    this.state = { showText: true, route: 'main' };
+    this.state = getInitialState();
   }
 
-  goToLogin() {
-    this.setState(Object.assign({}, this.state, { route: 'login' }));
-  }
-
-  goToMain() {
-    this.setState(Object.assign({}, this.state, { route: 'main' }));
+  goToPage(page: Page, route?: String) {
+    this.setState(Object.assign({}, this.state, { page: page, route: route }));
   }
 
   render() {
     let page: JSX.Element;
-    switch (this.state.route) {
-      case 'login': {
+    switch (this.state.page) {
+      case Page.login: {
         page = (
             <View style={styles.container}>
-              <Login back={() => this.goToMain()}/>
+              <Login back={() => this.goToPage(Page.main)}/>
             </View>
           );
         break;
       }
-      case 'main': {
+      case Page.sensors: {
+        page = (
+              <Sensors goToMain={() => this.goToPage(Page.main)}
+                       goToSensorDetails={r => this.goToPage(Page.sensorDetails, r)}
+                       sensors={this.state.sensors}/>
+          );
+        break;
+      }
+      case Page.sensorDetails: {
+        page = (
+              <SensorDetails goToSensors={() => this.goToPage(Page.sensors)}
+                             goToEdit={() => {}}
+                             params={detailsExtractFromRoute(this.state.sensors, this.state.route)}/>
+          );
+        break;
+      }
+      case Page.main: {
         page = (
           <View style={styles.container}>
             <Text style={styles.welcome}>
               Welcome to React Native! in TS
             </Text>
-            <Text style={styles.instructions}>
-              To get started, edit index.ios.js
-            </Text>
             <Button
-              onPress={() => this.goToLogin()}
+              onPress={() => this.goToPage(Page.login)}
               title="Log in"
+            />
+            <Button
+              onPress={() => this.goToPage(Page.sensors)}
+              title="Sensors"
             />
             <Text style={styles.instructions}>
               Press Cmd+R to reload,{'\n'}

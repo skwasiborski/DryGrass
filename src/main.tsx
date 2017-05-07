@@ -54,7 +54,7 @@ export default class DryGrass extends Component<undefined, DryGrassState> {
         page = (
           <View style={styles.container}>
             <Text style={styles.welcome}>
-              Welcome to React Native! in TS
+              Welcome to React Native! in TS asd
             </Text>
             <Button
               onPress={() => this.goToPage(Page.login)}

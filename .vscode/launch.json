@@ -24,6 +24,16 @@
             "outDir": "${workspaceRoot}/.vscode/.react"
         },
         {
+            "name": "Debug iOS Device",
+            "program": "${workspaceRoot}/.vscode/launchReactNative.js",
+            "type": "reactnative",
+            "request": "launch",
+            "platform": "ios",
+            "sourceMaps": true,
+            "target": "device",
+            "outDir": "${workspaceRoot}/.vscode/.react"
+        },
+        {
             "name": "Attach iOS",
             "program": "${workspaceRoot}/.vscode/launchReactNative.js",
             "type": "reactnative",

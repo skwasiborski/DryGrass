@@ -1,56 +1,81 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react'
 import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  Button
 } from 'react-native'
 
-export interface Props { }
-export interface State {
-  showText: boolean
-}
+import { Login } from './login.ios'
+import { Sensors } from './sensors.ios'
+import { SensorDetails } from './sensorDetails.ios'
 
-export default class DryGrass extends Component<Props, State> {
+import { DryGrassState, Page, getInitialState } from './stateHandling'
+
+export default class DryGrass extends Component<undefined, DryGrassState> {
   constructor(props) {
     super(props);
-    this.state = {showText: true};
+    this.state = getInitialState();
+  }
 
-    // Toggle the state every second
-    setInterval(() => {
-      this.setState({ showText: !this.state.showText });
-    }, 1000);
+  goToPage(page: Page, pageParams?: any) {
+    this.setState(Object.assign({}, this.state, { page: page, pageParams: pageParams }));
   }
 
   render() {
-    let element: JSX.Element;
-    if (this.state.showText) {
-      // console.warn('Warning test');
-
-      element = (
-        <Text style={styles.welcome}>
-          Welcome to React Native! in TS
-        </Text>);
+    let page: JSX.Element;
+    switch (this.state.page) {
+      case Page.login: {
+        page = (
+            <View style={styles.container}>
+              <Login back={() => this.goToPage(Page.main)}/>
+            </View>
+          );
+        break;
+      }
+      case Page.sensors: {
+        page = (
+              <Sensors goToMain={() => this.goToPage(Page.main)}
+                       goToSensorDetails={r => this.goToPage(Page.sensorDetails, r)}
+                       sensors={this.state.sensors}/>
+          );
+        break;
+      }
+      case Page.sensorDetails: {
+        page = (
+              <SensorDetails goToSensors={() => this.goToPage(Page.sensors)}
+                             goToEdit={() => {}}
+                             params={this.state.pageParams}/>
+          );
+        break;
+      }
+      case Page.main: {
+        page = (
+          <View style={styles.container}>
+            <Text style={styles.welcome}>
+              Welcome to React Native! in TS
+            </Text>
+            <Button
+              onPress={() => this.goToPage(Page.login)}
+              title="Log in"
+            />
+            <Button
+              onPress={() => this.goToPage(Page.sensors)}
+              title="Sensors"
+            />
+            <Text style={styles.instructions}>
+              Press Cmd+R to reload,{'\n'}
+              Cmd+D or shake for dev menu
+            </Text>
+          </View>
+        );
+        break;
+      }
+      default: throw new Error('unkonown route');
     }
 
-    return (
-      <View style={styles.container}>
-        {element}
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-      </View>
-    );
+    return page;
   }
 }
 

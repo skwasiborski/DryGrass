@@ -34,7 +34,7 @@
             "outDir": "${workspaceRoot}/.vscode/.react"
         },
         {
-            "name": "Attach iOS",
+            "name": "Attach",
             "program": "${workspaceRoot}/.vscode/launchReactNative.js",
             "type": "reactnative",
             "request": "attach",

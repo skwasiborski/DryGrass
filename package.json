@@ -10,7 +10,7 @@
     "lint": "tslint src/**/*.ts",
     "watch": "npm run build -- -w",
     "start:ios": "npm run build && concurrently -r 'npm run watch' 'react-native run-ios'",
-    "start:android": "npm run build && concurrently -r 'npm run watch' 'react-native run-android'",
+    "start:android": "npm run build && concurrently -r \"npm run watch\" \"react-native run-android\"",
     "test": "jest --coverage"
   },
   "dependencies": {

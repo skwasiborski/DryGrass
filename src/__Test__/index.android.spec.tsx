@@ -1,5 +1,5 @@
 import 'react-native'
-import Index from '../index.android'
+import Index from '../main'
 import React from 'react'
 
 // Note: test renderer must be required after react-native.
